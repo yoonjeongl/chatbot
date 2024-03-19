@@ -1,20 +1,18 @@
 # Standard Library Imports
-import openai
-import json
 import nltk
 import string
-import requests
+import os
 
 # Third-Party Imports
 import streamlit as st
-import langchain
 from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.feature_extraction.text import TfidfVectorizer
 from nltk.tokenize import word_tokenize
 from stop_words import get_stop_words
-from llama_index import VectorStoreIndex, ServiceContext, Document
+from llama_index import VectorStoreIndex, ServiceContext, PromptHelper, Document
 from llama_index.llms import OpenAI
 from llama_index import SimpleDirectoryReader
+from llama_index import GPTSimpleVectorIndex, LLMPredictor, ChatOpenAI
 
 # Download necessary nltk resources
 nltk.download('punkt')
@@ -36,7 +34,7 @@ def load_data():
 def extract_keywords(text):
     tokens = preprocess(text)
     freq_dist = nltk.FreqDist(tokens)
-    keywords = [word for word in list(freq_dist.keys()) if word not in excluded_keywords][:10]
+    keywords = [word for word in list(freq_dist.keys()) if word not in "excluded_keywords"][:10]
     return keywords
 
 # Function to remove punctuation, tokenize, remove stopwords, and stem

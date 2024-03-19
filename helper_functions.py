@@ -1,11 +1,6 @@
 # Third-Party Imports
-import streamlit as st
 import openai
-import langchain
-from index_functions import load_data
-from llama_index import VectorStoreIndex, ServiceContext, Document
-from llama_index.llms import OpenAI
-from llama_index import SimpleDirectoryReader
+import random
 
 # Main function to generate responses from OpenAI's API, not considering indexed data
 def generate_response(prompt, history, model_name, temperature):
@@ -91,13 +86,13 @@ def generate_response_index(prompt, history, model_name, temperature, chat_engin
 # Function returns a random thanks phrase to be used as part of the CoPilots reply
 # Note: Requires a dictionary of 'thanks phrases' to work properly
 def get_thanks_phrase():
-    selected_phrase = random.choice(thanks_phrases)
+    selected_phrase = random.choice("thanks_phrases")
     return selected_phrase
 
 # Function to randomize initial message of CoPilot
 # Note: Requires a dictionary of 'initial messages' to work properly
 def get_initial_message():
-    initial_message = random.choice(initial_message_phrases)
+    initial_message = random.choice("initial_message_phrases")
     return initial_message
 
 # Function to generate the summary; used in part of the response
